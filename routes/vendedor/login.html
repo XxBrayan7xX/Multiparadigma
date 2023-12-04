@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <form id="login-form">
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <label for="telefono">Telefono:</label>
+        <input type="text" id="telefono" name="telefono">
+        <br>
+        <button type="submit" id="sign-btn">login</button>
+    </form>
+    <script>
+       const loginForm = document.querySelector('#sign-form');
+        const loggingButton = document.querySelector('#sign-btn');
+        loggingButton.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const email = document.querySelector('#email')
+            const password = document.querySelector('#password')
+            fetch('/login',{
+                method:'POST',
+                headers:{
+                    'Content=Type':'application/json'
+                },
+                body:JSON.stringify({
+                    'email:':email,
+                    'password':password,
+                    'telefono':telefono
+                })
+            }).then(response=> response.json())
+            .then(data =>{
+                localStorage.setItem('token',data.auth_token)
+                windows.location.href='/main'
+            })
+        })
+    </script>
+</body>
+</html>

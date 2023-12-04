@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Registro de vendedor</h1>
+    <form id="sign-form">
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email">
+        <br>
+        <label for="password">password</label>
+        <input type="password" id="password" name="password">
+        <br>
+        <label for="telefono">Telefono</label>
+        <input type="text" id="telefono" name="telefono">
+        <br>
+        <button type="submit" id="sign-btn">Submmit</button>
+    </form>
+
+    <script>
+        const signForm=document.querySelector('#sign-form');
+        const signButton=document.querySelector('#sign-btn');
+        signButton.addEventListener('click',(e)=>{
+            e.preventDefault();
+            const email=document.querySelector('#email').value;
+            const password=document.querySelector('#password').value;
+            const telefono=document.querySelector('#telefono').value;
+            fetch('/signin',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    'email':email,
+                    'password':password,
+                    'telefono':telefono
+                })
+
+            }).then(response=>response.json())
+            .then(data=>{
+               if(data.status =="Success"){
+                alert("Registro exitoso")
+                window.location.href='/login/user'
+               }else{
+                alert(data.message)
+               }
+            })
+        })
+    </script>
+</body>
+</html>
